@@ -145,6 +145,6 @@ After running `database.sql`, seed the database using `DatabaseSeeder.java` or m
 
 ## 👨‍💻 Developed By
 
-**Group 37 — Section B**  
+**ABDUL BASIT - AYESHA ANJUM**  
 FAST NUCES Islamabad  
 Course: Software Design & Architecture (SDA)
