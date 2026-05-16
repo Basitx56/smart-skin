@@ -1,59 +1,150 @@
-# Smart Skin Health Analysis & Routine Generator System
+# 🧴 Smart Skin Health Analysis & Routine Generator System
 
-A JavaFX desktop application for personalized skin health tracking, routine generation, ingredient conflict detection, appointment booking, expert validation, and administrative management.
+A Java desktop application built with **JavaFX** and **MySQL** that analyzes users' skin profiles and generates personalized skincare routines. Built as a Software Design & Architecture (SDA) course project at FAST NUCES Islamabad.
 
-## Group Members
+---
 
-- Aisha Anjum Abbasi - 24I-3171 - UC1 to UC5
-- Shehryar Amin - 22I-2649 - UC6 to UC10
-- Alisha Iqbal - 24I-3147 - UC11 to UC15
+## ✨ Features
 
-## Prerequisites
+- 👤 User registration & login with **bcrypt** password hashing
+- 🧬 Skin profile analysis (oily, dry, combination, sensitive, normal)
+- 📋 Personalized skincare routine generation (morning & evening)
+- ⚠️ Ingredient conflict detection
+- 🛍️ Product search & favorites
+- 📅 Appointment booking with skincare experts
+- 📊 Progress tracking with photo uploads
+- ⭐ Expert rating & review system
+- 🔔 Notification settings
+- 🛡️ Admin panel for user & product management
+- 📝 Validation queue for expert-verified routines
+- 🌙 Dark theme UI
 
-- JDK 17
-- MySQL 8
-- Maven
+---
 
-## Setup Steps
+## 🛠️ Tech Stack
 
-1. Run `database.sql` in MySQL.
-2. Update `src/resources/config.properties` with your MySQL credentials.
-3. Run `DatabaseSeeder.java` once.
-4. Run the app with `mvn javafx:run` or run `Main.java` directly.
+| Layer | Technology |
+|-------|-----------|
+| Language | Java 17+ |
+| UI Framework | JavaFX 17 + FXML |
+| Database | MySQL 8.x |
+| Build Tool | Maven |
+| Password Hashing | BCrypt |
+| DB Connector | MySQL Connector/J 8.0.33 |
 
-## Architecture (Layered 3-Tier)
+---
 
-```text
-Presentation Layer (JavaFX UI)
-  -> Controllers in src/ui
-  -> FXML Views in src/resources/fxml
+## ⚙️ Prerequisites
 
-Business Logic Layer (Services)
-  -> Classes in src/service
-  -> Contains validation, workflow, rules, orchestration
+Make sure you have the following installed:
 
-Data Access Layer (Repositories)
-  -> Classes in src/repository
-  -> JDBC-only database communication
+- **Java JDK 17+** → [Download](https://www.oracle.com/java/technologies/downloads/)
+- **Maven 3.8+** → [Download](https://maven.apache.org/download.cgi)
+- **MySQL 8.x** → [Download](https://dev.mysql.com/downloads/)
+- **Git**
 
-Database Layer (MySQL)
-  -> Tables defined in database.sql
+---
+
+## 🚀 Setup & Run
+
+### 1. Clone the Repository
+```bash
+git clone https://github.com/Basitx56/smart-skin.git
+cd smart-skin
 ```
 
-## Design Patterns
+### 2. Set Up the Database
 
-| Pattern | Class | Location |
-|---|---|---|
-| Singleton | DBConnection, AdminService | src/repository, src/service |
-| Strategy | RoutineStrategy + concrete strategies | src/service |
-| Factory | RoutineStrategyFactory | src/service |
-| Observer-style event handling | NotificationService, ProgressTrackingService | src/service |
-| Creator | AuthService, RoutineGeneratorService | src/service |
+Open MySQL and run:
+```sql
+SOURCE database.sql;
+```
 
-## Work Division
+Or via terminal:
+```bash
+mysql -u root -p < database.sql
+```
 
-| Member | Assigned UCs |
-|---|---|
-| Aisha Anjum Abbasi (24I-3171) | UC1, UC2, UC3, UC4, UC5 |
-| Shehryar Amin (22I-2649) | UC6, UC7, UC8, UC9, UC10 |
-| Alisha Iqbal (24I-3147) | UC11, UC12, UC13, UC14, UC15 |
+This creates the `smartskin` database with all required tables.
+
+### 3. Configure Database Connection
+
+Edit `src/resources/config.properties`:
+```properties
+db.url=jdbc:mysql://localhost:3306/smartskin
+db.username=root
+db.password=your_mysql_password
+```
+
+### 4. Build the Project
+```bash
+mvn clean install
+```
+
+### 5. Run the Application
+```bash
+mvn javafx:run
+```
+
+---
+
+## 📁 Project Structure
+
+```
+smart-skin/
+├── src/
+│   ├── Main.java                  # Entry point
+│   ├── model/                     # Entity classes (User, Product, etc.)
+│   ├── repository/                # Database access layer (DAO pattern)
+│   ├── service/                   # Business logic layer
+│   ├── ui/                        # JavaFX controllers
+│   ├── util/                      # Helpers (Session, Navigation, etc.)
+│   └── resources/
+│       ├── fxml/                  # UI layout files
+│       ├── styles/                # CSS dark theme
+│       ├── images/                # App images
+│       └── config.properties      # DB configuration
+├── database.sql                   # Full database schema
+└── pom.xml                        # Maven dependencies
+```
+
+---
+
+## 🏗️ Architecture & Design Patterns
+
+This project follows a **3-layer architecture**:
+
+- **Presentation Layer** — JavaFX FXML controllers (`ui/`)
+- **Business Logic Layer** — Service classes (`service/`)
+- **Data Access Layer** — Repository classes (`repository/`)
+
+### Design Patterns Used
+- **Strategy Pattern** — Routine generation per skin type (`RoutineStrategy`, `OilySkinStrategy`, `DrySkinStrategy`, etc.)
+- **Repository Pattern** — Data access abstraction
+- **Session Manager** — Singleton for user session
+- **Factory Pattern** — `RoutineStrategyFactory`
+- **Observer Pattern** — Notification system
+
+---
+
+## 👥 User Roles
+
+| Role | Capabilities |
+|------|-------------|
+| End User | Profile setup, routine generation, appointments, progress tracking |
+| Skincare Expert | Validate routines, manage appointments, get rated |
+| Admin | Manage users, products, view audit logs |
+
+---
+
+## 📸 Default Admin Credentials
+
+After running `database.sql`, seed the database using `DatabaseSeeder.java` or manually insert an admin user.
+
+---
+
+## 👨‍💻 Developed By
+
+**Group 37 — Section B**  
+FAST NUCES Islamabad  
+Course: Software Design & Architecture (SDA)
