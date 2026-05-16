@@ -1,0 +1,5 @@
+target/
+*Zone.Identifier*
+*.TMP
+*.class
+photos/
