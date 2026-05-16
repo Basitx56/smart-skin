@@ -1,0 +1,16 @@
+{
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "java.import.maven.enabled": true,
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar"
+    ],
+    "java.project.sourcePaths": [
+        "src"
+    ],
+    "css.lint.vendorPrefix": "ignore",
+    "css.lint.compatibleVendorPrefixes": "ignore",
+    "css.lint.unknownProperties": "ignore",
+    "css.lint.unknownPseudoClasses": "ignore",
+    "css.lint.unknownPseudoElements": "ignore",
+    "css.lint.unknownAtRules": "ignore"
+}

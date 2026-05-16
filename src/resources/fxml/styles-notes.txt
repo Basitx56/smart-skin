@@ -1,0 +1,11 @@
+UI color scheme:
+- Primary: #F8BBD9
+- Background: #FFF8F0
+- Success: #4CAF50
+- Error: #F44336
+- Warning: #FF9800
+
+Typography:
+- Title: 20
+- Heading: 16
+- Body: 14

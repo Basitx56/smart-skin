@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="ui.TrackProgressController"
+            stylesheets="@../styles/darktheme.css"
+            prefWidth="1200" prefHeight="740">
+    <left>
+        <VBox styleClass="sidebar" spacing="4">
+            <padding><Insets top="24" right="12" bottom="24" left="12"/></padding>
+            <HBox spacing="8" alignment="CENTER_LEFT" style="-fx-padding: 0 4 0 4;">
+                <Label text="✦" styleClass="sidebar-logo-label"/>
+                <Label text="SmartSkin" styleClass="sidebar-app-name"/>
+            </HBox>
+            <Region prefHeight="20"/>
+            <Region styleClass="sidebar-divider"/>
+            <Region prefHeight="10"/>
+            <Label text="MENU" style="-fx-text-fill: #999999; -fx-font-size: 10px; -fx-font-weight: bold; -fx-padding: 0 4 0 4;"/>
+            <Region prefHeight="4"/>
+            <Button text="🏠  Dashboard"       onAction="#goDashboard"    styleClass="sidebar-nav-button" maxWidth="Infinity"/>
+            <Button text="👤  Skin Profile"    onAction="#goSkinProfile"  styleClass="sidebar-nav-button" maxWidth="Infinity"/>
+            <Button text="📸  Upload Photo"    onAction="#goUploadPhoto"  styleClass="sidebar-nav-button" maxWidth="Infinity"/>
+            <Button text="🔍  Search Products" onAction="#goSearch"       styleClass="sidebar-nav-button" maxWidth="Infinity"/>
+            <Button text="📅  Book Appointment" onAction="#goAppointment" styleClass="sidebar-nav-button" maxWidth="Infinity"/>
+            <Button text="✨  My Routine"      onAction="#goRoutine"      styleClass="sidebar-nav-button" maxWidth="Infinity"/>
+            <Button text="⚠  Conflict Checker" onAction="#goConflict"    styleClass="sidebar-nav-button" maxWidth="Infinity"/>
+            <Button text="📊  Track Progress"  styleClass="sidebar-nav-button-active" maxWidth="Infinity"/>
+            <Button text="❤  Favorites"       onAction="#goFavorites"    styleClass="sidebar-nav-button" maxWidth="Infinity"/>
+            <Button text="🔔  Notifications"   onAction="#goNotifications" styleClass="sidebar-nav-button" maxWidth="Infinity"/>
+            <Pane VBox.vgrow="ALWAYS"/>
+            <Region styleClass="sidebar-divider"/>
+            <Region prefHeight="10"/>
+            <Button text="Sign out" onAction="#onLogout" styleClass="button-danger" maxWidth="Infinity"/>
+        </VBox>
+    </left>
+    <top>
+        <HBox styleClass="topbar" alignment="CENTER_LEFT">
+            <Label text="Track Skin Progress" styleClass="topbar-title"/>
+        </HBox>
+    </top>
+    <center>
+        <HBox styleClass="content-area" spacing="20">
+            <!-- Add Entry form -->
+            <VBox styleClass="card" spacing="14" prefWidth="320" minWidth="300">
+                <Label text="ADD ENTRY" style="-fx-text-fill: #999999; -fx-font-size: 11px; -fx-font-weight: bold;"/>
+                <DatePicker fx:id="datePicker" maxWidth="Infinity"/>
+
+                <VBox spacing="6">
+                    <HBox><Label text="Acne Level" style="-fx-text-fill: #777777; -fx-font-size: 13px;"/><Pane HBox.hgrow="ALWAYS"/><Label fx:id="acneValue" text="3" styleClass="label-accent"/></HBox>
+                    <Slider fx:id="acneSlider" min="1" max="5" value="3" blockIncrement="1"/>
+                </VBox>
+                <VBox spacing="6">
+                    <HBox><Label text="Dryness" style="-fx-text-fill: #777777; -fx-font-size: 13px;"/><Pane HBox.hgrow="ALWAYS"/><Label fx:id="drynessValue" text="3" styleClass="label-accent"/></HBox>
+                    <Slider fx:id="drynessSlider" min="1" max="5" value="3" blockIncrement="1"/>
+                </VBox>
+                <VBox spacing="6">
+                    <HBox><Label text="Pigmentation" style="-fx-text-fill: #777777; -fx-font-size: 13px;"/><Pane HBox.hgrow="ALWAYS"/><Label fx:id="pigmentationValue" text="3" styleClass="label-accent"/></HBox>
+                    <Slider fx:id="pigmentationSlider" min="1" max="5" value="3" blockIncrement="1"/>
+                </VBox>
+                <VBox spacing="6">
+                    <HBox><Label text="Irritation" style="-fx-text-fill: #777777; -fx-font-size: 13px;"/><Pane HBox.hgrow="ALWAYS"/><Label fx:id="irritationValue" text="3" styleClass="label-accent"/></HBox>
+                    <Slider fx:id="irritationSlider" min="1" max="5" value="3" blockIncrement="1"/>
+                </VBox>
+
+                <Button text="📷  Upload Photo" onAction="#onUploadPhoto" styleClass="button-secondary" maxWidth="Infinity"/>
+                <TextArea fx:id="notesArea" promptText="How does your skin feel today?" prefHeight="80"/>
+                <HBox spacing="10">
+                    <Button text="Save Entry" onAction="#onSaveEntry" styleClass="button-primary"/>
+                    <ProgressIndicator fx:id="loadingIndicator" visible="false" prefWidth="22" prefHeight="22"/>
+                </HBox>
+            </VBox>
+
+            <!-- Chart + Insights -->
+            <VBox styleClass="card" spacing="14" HBox.hgrow="ALWAYS">
+                <HBox alignment="CENTER_LEFT">
+                    <Label text="PROGRESS OVER TIME" style="-fx-text-fill: #999999; -fx-font-size: 11px; -fx-font-weight: bold;"/>
+                    <Pane HBox.hgrow="ALWAYS"/>
+                    <Button text="Export CSV" onAction="#onExportCsv" styleClass="button-secondary"/>
+                </HBox>
+                <LineChart fx:id="progressChart" VBox.vgrow="ALWAYS" animated="false">
+                    <xAxis><CategoryAxis label="Date"/></xAxis>
+                    <yAxis><NumberAxis label="Rating" autoRanging="false" lowerBound="1" upperBound="5" tickUnit="1"/></yAxis>
+                </LineChart>
+                <VBox fx:id="warningBanner" visible="false" styleClass="banner-danger" spacing="4">
+                    <Label text="⚠  Worsening trend detected" style="-fx-text-fill: #F44336; -fx-font-size: 13px; -fx-font-weight: bold;"/>
+                    <Label text="Consider consulting a skincare expert." style="-fx-text-fill: rgba(255,255,255,0.55); -fx-font-size: 12px;"/>
+                </VBox>
+                <Label fx:id="insightLabel" text="" wrapText="true"
+                       style="-fx-text-fill: rgba(255,255,255,0.5); -fx-font-size: 13px;"/>
+            </VBox>
+        </HBox>
+    </center>
+</BorderPane>

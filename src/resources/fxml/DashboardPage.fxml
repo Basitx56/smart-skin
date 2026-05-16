@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="ui.DashboardController"
+            stylesheets="@../styles/darktheme.css"
+            prefWidth="1200" prefHeight="740">
+
+    <!-- ═══ SIDEBAR (left) ═══ -->
+    <left>
+        <VBox styleClass="sidebar" spacing="4">
+            <padding><Insets top="24" right="12" bottom="24" left="12"/></padding>
+
+            <!-- Brand -->
+            <HBox spacing="8" alignment="CENTER_LEFT" style="-fx-padding: 0 4 0 4;">
+                <Label text="✦" styleClass="sidebar-logo-label"/>
+                <Label text="SmartSkin" styleClass="sidebar-app-name"/>
+            </HBox>
+            <Region prefHeight="6"/>
+            <VBox fx:id="userInfoBox" style="-fx-padding: 0 4 0 4;">
+                <Label fx:id="sidebarUserName" text="User" styleClass="sidebar-user-name"/>
+                <Label fx:id="sidebarUserRole" text="End User" styleClass="sidebar-user-role"/>
+            </VBox>
+            <Region prefHeight="18"/>
+
+            <!-- Divider -->
+            <Region styleClass="sidebar-divider"/>
+            <Region prefHeight="10"/>
+
+            <Label text="MENU" style="-fx-text-fill: #999999; -fx-font-size: 10px; -fx-font-weight: bold; -fx-padding: 0 4 0 4;"/>
+            <Region prefHeight="4"/>
+
+            <Button text="🏠  Dashboard"      styleClass="sidebar-nav-button-active" maxWidth="Infinity"/>
+            <Button text="👤  Skin Profile"   onAction="#goSkinProfile"   styleClass="sidebar-nav-button" maxWidth="Infinity"/>
+            <Button text="📸  Upload Photo"   onAction="#goUploadPhoto"   styleClass="sidebar-nav-button" maxWidth="Infinity"/>
+            <Button text="🔍  Search Products" onAction="#goSearch"       styleClass="sidebar-nav-button" maxWidth="Infinity"/>
+            <Button text="📅  Book Appointment" onAction="#goAppointment" styleClass="sidebar-nav-button" maxWidth="Infinity"/>
+            <Button text="✨  My Routine"     onAction="#goRoutine"       styleClass="sidebar-nav-button" maxWidth="Infinity"/>
+            <Button text="⚠  Conflict Checker" onAction="#goConflict"    styleClass="sidebar-nav-button" maxWidth="Infinity"/>
+            <Button text="📊  Track Progress" onAction="#goProgress"      styleClass="sidebar-nav-button" maxWidth="Infinity"/>
+            <Button text="❤  Favorites"      onAction="#goFavorites"     styleClass="sidebar-nav-button" maxWidth="Infinity"/>
+            <Button text="🔔  Notifications"  onAction="#goNotifications" styleClass="sidebar-nav-button" maxWidth="Infinity"/>
+
+            <Pane VBox.vgrow="ALWAYS"/>
+            <Region styleClass="sidebar-divider"/>
+            <Region prefHeight="10"/>
+            <Button text="Sign out" onAction="#onLogout" styleClass="button-danger" maxWidth="Infinity"/>
+        </VBox>
+    </left>
+
+    <!-- ═══ TOPBAR (top) ═══ -->
+    <top>
+        <HBox styleClass="topbar" alignment="CENTER_LEFT" spacing="12">
+            <Label text="Dashboard" styleClass="topbar-title"/>
+            <Pane HBox.hgrow="ALWAYS"/>
+            <Label text="Unread" style="-fx-text-fill: rgba(255,255,255,0.35); -fx-font-size: 12px;"/>
+            <Label fx:id="unreadBadgeLabel" text="0" styleClass="badge"/>
+        </HBox>
+    </top>
+
+    <!-- ═══ CONTENT (center) ═══ -->
+    <center>
+        <ScrollPane fitToWidth="true" styleClass="scroll-pane" style="-fx-background-color: transparent; -fx-background: transparent;">
+            <content>
+                <VBox styleClass="content-area" spacing="20">
+
+                    <!-- Welcome -->
+                    <Label fx:id="welcomeLabel" text="Welcome back 👋" styleClass="page-title"/>
+
+                    <!-- Stat cards -->
+                    <HBox spacing="14">
+                        <VBox styleClass="stat-card" HBox.hgrow="ALWAYS" spacing="4">
+                            <Label fx:id="completenessStatLabel" text="0%" styleClass="stat-value"/>
+                            <Label text="Profile Complete" styleClass="stat-label"/>
+                        </VBox>
+                        <VBox styleClass="stat-card" HBox.hgrow="ALWAYS" spacing="4">
+                            <Label fx:id="appointmentStatLabel" text="0" styleClass="stat-value"/>
+                            <Label text="Appointments" styleClass="stat-label"/>
+                        </VBox>
+                        <VBox styleClass="stat-card" HBox.hgrow="ALWAYS" spacing="4">
+                            <Label fx:id="progressStatLabel" text="0" styleClass="stat-value"/>
+                            <Label text="Progress Entries" styleClass="stat-label"/>
+                        </VBox>
+                        <VBox styleClass="stat-card" HBox.hgrow="ALWAYS" spacing="4">
+                            <Label fx:id="favoriteStatLabel" text="0" styleClass="stat-value"/>
+                            <Label text="Saved Products" styleClass="stat-label"/>
+                        </VBox>
+                    </HBox>
+
+                    <!-- Profile completeness bar -->
+                    <VBox styleClass="card" spacing="10">
+                        <HBox alignment="CENTER_LEFT">
+                            <Label text="Skin Profile Completeness" style="-fx-text-fill: rgba(255,255,255,0.6); -fx-font-size: 13px; -fx-font-weight: bold;"/>
+                            <Pane HBox.hgrow="ALWAYS"/>
+                            <Label fx:id="completenessLabel" text="0%" styleClass="label-accent"/>
+                        </HBox>
+                        <ProgressBar fx:id="completenessBar" progress="0" maxWidth="Infinity"/>
+                        <Label text="Complete your skin profile to get personalized recommendations"
+                               style="-fx-text-fill: rgba(255,255,255,0.3); -fx-font-size: 12px;"/>
+                    </VBox>
+
+                    <!-- Two columns -->
+                    <HBox spacing="14">
+                        <VBox styleClass="card" spacing="12" HBox.hgrow="ALWAYS">
+                            <Label text="RECENT NOTIFICATIONS" style="-fx-text-fill: #999999; -fx-font-size: 11px; -fx-font-weight: bold;"/>
+                            <VBox fx:id="notificationsBox" spacing="8"/>
+                        </VBox>
+                        <VBox styleClass="card" spacing="12" HBox.hgrow="ALWAYS">
+                            <Label text="UPCOMING APPOINTMENTS" style="-fx-text-fill: #999999; -fx-font-size: 11px; -fx-font-weight: bold;"/>
+                            <VBox fx:id="appointmentsBox" spacing="8"/>
+                        </VBox>
+                    </HBox>
+
+                </VBox>
+            </content>
+        </ScrollPane>
+    </center>
+</BorderPane>

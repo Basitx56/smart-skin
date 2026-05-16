@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="ui.RateExpertController"
+            stylesheets="@../styles/darktheme.css"
+            prefWidth="1200" prefHeight="740">
+    <left>
+        <VBox styleClass="sidebar" spacing="4">
+            <padding><Insets top="24" right="12" bottom="24" left="12"/></padding>
+            <HBox spacing="8" alignment="CENTER_LEFT" style="-fx-padding: 0 4 0 4;">
+                <Label text="✦" styleClass="sidebar-logo-label"/>
+                <Label text="SmartSkin" styleClass="sidebar-app-name"/>
+            </HBox>
+            <Region prefHeight="20"/>
+            <Region styleClass="sidebar-divider"/>
+            <Region prefHeight="10"/>
+            <Label text="MENU" style="-fx-text-fill: #999999; -fx-font-size: 10px; -fx-font-weight: bold; -fx-padding: 0 4 0 4;"/>
+            <Region prefHeight="4"/>
+            <Button text="🏠  Dashboard"       onAction="#goDashboard"    styleClass="sidebar-nav-button" maxWidth="Infinity"/>
+            <Button text="👤  Skin Profile"    onAction="#goSkinProfile"  styleClass="sidebar-nav-button" maxWidth="Infinity"/>
+            <Button text="📸  Upload Photo"    onAction="#goUploadPhoto"  styleClass="sidebar-nav-button" maxWidth="Infinity"/>
+            <Button text="🔍  Search Products" onAction="#goSearch"       styleClass="sidebar-nav-button" maxWidth="Infinity"/>
+            <Button text="📅  Book Appointment" onAction="#goAppointment" styleClass="sidebar-nav-button" maxWidth="Infinity"/>
+            <Button text="✨  My Routine"      onAction="#goRoutine"      styleClass="sidebar-nav-button" maxWidth="Infinity"/>
+            <Button text="⚠  Conflict Checker" onAction="#goConflict"    styleClass="sidebar-nav-button" maxWidth="Infinity"/>
+            <Button text="📊  Track Progress"  onAction="#goProgress"     styleClass="sidebar-nav-button" maxWidth="Infinity"/>
+            <Button text="❤  Favorites"       onAction="#goFavorites"    styleClass="sidebar-nav-button" maxWidth="Infinity"/>
+            <Button text="🔔  Notifications"   onAction="#goNotifications" styleClass="sidebar-nav-button" maxWidth="Infinity"/>
+            <Pane VBox.vgrow="ALWAYS"/>
+            <Region styleClass="sidebar-divider"/>
+            <Region prefHeight="10"/>
+            <Button text="Sign out" onAction="#onLogout" styleClass="button-danger" maxWidth="Infinity"/>
+        </VBox>
+    </left>
+    <top>
+        <HBox styleClass="topbar" alignment="CENTER_LEFT">
+            <Label text="Rate Consultation" styleClass="topbar-title"/>
+        </HBox>
+    </top>
+    <center>
+        <VBox styleClass="content-area" alignment="TOP_CENTER" spacing="0">
+            <VBox maxWidth="560" spacing="24" style="-fx-padding: 0;">
+                <Label text="Rate Your Consultation" styleClass="page-title"/>
+
+                <VBox styleClass="card" spacing="16">
+                    <Label fx:id="expertInfoLabel" text="Expert • Appointment Date"
+                           style="-fx-text-fill: rgba(255,255,255,0.6); -fx-font-size: 14px;"/>
+
+                    <VBox spacing="10">
+                        <Label text="YOUR RATING" style="-fx-text-fill: #999999; -fx-font-size: 11px; -fx-font-weight: bold;"/>
+                        <HBox spacing="4">
+                            <Button fx:id="star1" text="★" onAction="#onStar1" styleClass="star-empty"/>
+                            <Button fx:id="star2" text="★" onAction="#onStar2" styleClass="star-empty"/>
+                            <Button fx:id="star3" text="★" onAction="#onStar3" styleClass="star-empty"/>
+                            <Button fx:id="star4" text="★" onAction="#onStar4" styleClass="star-empty"/>
+                            <Button fx:id="star5" text="★" onAction="#onStar5" styleClass="star-empty"/>
+                        </HBox>
+                    </VBox>
+
+                    <VBox spacing="8">
+                        <Label text="WRITTEN REVIEW" style="-fx-text-fill: #999999; -fx-font-size: 11px; -fx-font-weight: bold;"/>
+                        <TextArea fx:id="commentArea" promptText="Share your experience with this expert..." prefHeight="140"/>
+                        <HBox alignment="CENTER_RIGHT">
+                            <Label fx:id="charCounterLabel" text="0 / 500" styleClass="label-muted"/>
+                        </HBox>
+                    </VBox>
+
+                    <Label fx:id="alreadyReviewedLabel" text="✓ You have already reviewed this consultation."
+                           visible="false" styleClass="label-accent"/>
+
+                    <Button fx:id="submitButton" text="Submit Review" onAction="#onSubmit"
+                            styleClass="button-primary" maxWidth="Infinity"/>
+                </VBox>
+            </VBox>
+        </VBox>
+    </center>
+</BorderPane>
